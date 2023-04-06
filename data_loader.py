@@ -58,6 +58,11 @@ class DataLoader:
         trips.to_csv(save_loc, index=False)
 
         # TODO: Your code here
+        with self.driver.session() as session:
+
+            create_schema = "LOAD CSV WITH HEADERS FROM 'file:///" + file_path.split(".")[0] + ".csv' AS row MERGE (p:Location {name: toInteger(row.PULocationID)}) MERGE (d:Location {name: toInteger(row.DOLocationID)}) MERGE (p)-[t:TRIP {distance: toFloat(row.trip_distance), fare: toFloat(row.fare_amount), pickup_dt: datetime(replace(row.tpep_pickup_datetime, ' ', 'T')), dropoff_dt: datetime(replace(row.tpep_dropoff_datetime, ' ', 'T'))}]->(d)"
+            session.run(create_schema)
+            
 
 
 def main():
