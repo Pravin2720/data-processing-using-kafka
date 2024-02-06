@@ -30,11 +30,11 @@ RUN apt-get update && \
 #   2. data_loader: git clone inside docker container with github tokens
 
 RUN apt-get update && apt-get install -y git
-RUN git clone -b data_loader 'https://oauth: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@github.com/CSE511-SPRING-2023/ptiwar23-project-2.git' cse511
+RUN git clone -b data_loader 'https://oauth:{{github_personal_access_token}}@github.com/CSE511-SPRING-2023/ptiwar23-project-2.git' cse511
 
 RUN wget -O - https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-03.parquet > /cse511/yellow_tripdata_2022-03.parquet
 
-# -username 'Pravin2720' -password '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'
+# -username 'Pravin2720' -password '{{github_personal_access_token}}'
 # RUN cp ptiwar23-project-2/ /cse511/
 
 # Step 2: Install the dependancies
